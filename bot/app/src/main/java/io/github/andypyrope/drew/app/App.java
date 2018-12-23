@@ -1,15 +1,22 @@
 package io.github.andypyrope.drew.app;
 
+import io.github.andypyrope.drew.cmd.Command;
+import io.github.andypyrope.drew.cmd.CommandParser;
+import io.github.andypyrope.drew.cmd.StandardCommandParser;
+import io.github.andypyrope.drew.cmd.general.HelpCommand;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import sx.blah.discord.api.ClientBuilder;
 import sx.blah.discord.api.IDiscordClient;
 import sx.blah.discord.api.events.EventDispatcher;
 import sx.blah.discord.api.events.IListener;
 import sx.blah.discord.handle.impl.events.ReadyEvent;
 import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.handle.impl.obj.ReactionEmoji;
 import sx.blah.discord.util.DiscordException;
 
 public class App {
+
+   private static final Logger LOGGER = LoggerFactory.getLogger(App.class.getName());
 
    public static void main(final String[] args) {
       if (args.length == 0) {
@@ -22,28 +29,29 @@ public class App {
          return;
       }
 
+      final String prefix = "drew.";
+
+      final HelpCommand helpCommand = new HelpCommand(prefix);
+      final Command[] commands = new Command[]{
+            helpCommand,
+      };
+      helpCommand.registerCommands(commands);
+
+      final CommandParser commandParser = new StandardCommandParser(commands, prefix);
+
       System.out.println(String.format("Application name: '%s'",
             client.getApplicationName()));
 
       final EventDispatcher dispatcher = client.getDispatcher();
 
-      dispatcher.registerListener((IListener<ReadyEvent>) event ->
-            System.out.println("Ready!"));
+      dispatcher.registerListener((IListener<ReadyEvent>) event -> LOGGER.info("Ready!"));
 
       dispatcher.registerListener((IListener<MessageReceivedEvent>) event -> {
-         System.out.println(String.format("Message received by '%s': %s",
-               event.getAuthor().getName(), event.getMessage().getContent()));
-
-         try {
-            event.getMessage().addReaction(ReactionEmoji.of("0⃣"));
-            Thread.sleep(300);
-            event.getMessage().addReaction(ReactionEmoji.of("\uD83C\uDDE6"));
-            Thread.sleep(300);
-            event.getMessage().addReaction(ReactionEmoji.of(":shiba_heartbroken:", 498190655843991554L));
-         } catch (final InterruptedException e) {
-            System.out.println("WHO INTERRUPTED MY SWEET SWEET SLEEP >:c");
-            e.printStackTrace();
-         }
+         LOGGER.info("Message received by '{}#{}': {}",
+               event.getAuthor().getName(),
+               event.getAuthor().getDiscriminator(),
+               event.getMessage().getContent());
+         commandParser.interpretMessage(event.getMessage());
       });
    }
 

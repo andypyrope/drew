@@ -1,0 +1,10 @@
+language: java
+
+jdk:
+  - oraclejdk9
+
+before_script:
+  - cd bot
+
+script:
+  - mvn install
