@@ -1,21 +1,21 @@
 package io.github.andypyrope.drew.cmd;
 
+import net.dv8tion.jda.core.entities.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sx.blah.discord.handle.obj.IMessage;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class StandardCommandParser implements CommandParser {
+public class JdaCommandParser implements CommandParser {
 
    private static final Logger LOGGER = LoggerFactory.getLogger(
-         StandardCommandParser.class.getName());
+         JdaCommandParser.class.getName());
 
    private final String _prefix;
    private final Map<String, Command> _stringCommandMap;
 
-   public StandardCommandParser(final Command[] commands, final String prefix) {
+   public JdaCommandParser(final Command[] commands, final String prefix) {
       _prefix = prefix;
 
       _stringCommandMap = new HashMap<>(commands.length);
@@ -27,8 +27,8 @@ public class StandardCommandParser implements CommandParser {
    }
 
    @Override
-   public void interpretMessage(final IMessage message) {
-      final String content = message.getContent();
+   public void interpretMessage(final Message message) {
+      final String content = message.getContentRaw();
       LOGGER.debug("Parsing '{}'", content);
       if (!content.startsWith(_prefix)) {
          LOGGER.debug("Message '{}' is not a command", content);
@@ -43,14 +43,18 @@ public class StandardCommandParser implements CommandParser {
          LOGGER.debug("Message '{}' by user '{}' is not a recognizable command",
                content, message.getAuthor().toString());
 
-         message.reply(String.format(
+         message.getChannel().sendMessage(String.format(
                "Your message is not a recognizable command, sorry! Type `%shelp` to " +
-                     "see the list of commands you can use.", _prefix));
+                     "see the list of commands you can use.", _prefix))
+               .queue(result -> LOGGER.debug(
+                     "Message '{}' sent - that a command was not recognized",
+                     result.getId()));
          return;
       }
 
-      _stringCommandMap.get(command).execute(
-            message,
-            _prefix.length() + command.length() + 1);
+      final Command commandToExecute = _stringCommandMap.get(command);
+      LOGGER.debug("Executing command '{}' ('{}')...",
+            commandToExecute.getClass().getSimpleName(), command);
+      commandToExecute.execute(message, _prefix.length() + command.length() + 1);
    }
 }

@@ -2,67 +2,69 @@ package io.github.andypyrope.drew.app;
 
 import io.github.andypyrope.drew.cmd.Command;
 import io.github.andypyrope.drew.cmd.CommandParser;
-import io.github.andypyrope.drew.cmd.StandardCommandParser;
+import io.github.andypyrope.drew.cmd.JdaCommandParser;
 import io.github.andypyrope.drew.cmd.general.HelpCommand;
+import net.dv8tion.jda.core.JDABuilder;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.events.ReadyEvent;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.core.hooks.EventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sx.blah.discord.api.ClientBuilder;
-import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.api.events.EventDispatcher;
-import sx.blah.discord.api.events.IListener;
-import sx.blah.discord.handle.impl.events.ReadyEvent;
-import sx.blah.discord.handle.impl.events.guild.channel.message.MessageReceivedEvent;
-import sx.blah.discord.util.DiscordException;
 
-public class App {
+import javax.security.auth.login.LoginException;
 
+public class App implements EventListener {
+
+   private static final String PREFIX = "drew.";
    private static final Logger LOGGER = LoggerFactory.getLogger(App.class.getName());
+
+   private final CommandParser _commandParser;
+
+   private App() {
+      final HelpCommand helpCommand = new HelpCommand(PREFIX);
+      final Command[] commands = new Command[]{
+            helpCommand,
+      };
+      helpCommand.registerCommands(commands);
+
+      _commandParser = new JdaCommandParser(commands, PREFIX);
+   }
 
    public static void main(final String[] args) {
       if (args.length == 0) {
          throw new RuntimeException("There should be one parameter - the bot token");
       }
 
-      final IDiscordClient client = logIn(args[0]);
-      if (client == null) {
-         System.out.println("Could not log in. Exiting...");
-         return;
+      final App app = new App();
+      try {
+         app.start(args[0]);
+      } catch (final LoginException e) {
+         LOGGER.error("Could not log in", e);
       }
-
-      final String prefix = "drew.";
-
-      final HelpCommand helpCommand = new HelpCommand(prefix);
-      final Command[] commands = new Command[]{
-            helpCommand,
-      };
-      helpCommand.registerCommands(commands);
-
-      final CommandParser commandParser = new StandardCommandParser(commands, prefix);
-
-      System.out.println(String.format("Application name: '%s'",
-            client.getApplicationName()));
-
-      final EventDispatcher dispatcher = client.getDispatcher();
-
-      dispatcher.registerListener((IListener<ReadyEvent>) event -> LOGGER.info("Ready!"));
-
-      dispatcher.registerListener((IListener<MessageReceivedEvent>) event -> {
-         LOGGER.info("Message received by '{}#{}': {}",
-               event.getAuthor().getName(),
-               event.getAuthor().getDiscriminator(),
-               event.getMessage().getContent());
-         commandParser.interpretMessage(event.getMessage());
-      });
    }
 
-   private static IDiscordClient logIn(final String token) {
-      final ClientBuilder clientBuilder = new ClientBuilder().withToken(token);
+   private void start(final String token) throws LoginException {
+      new JDABuilder(token).addEventListener(this).build();
+   }
 
-      try {
-         return clientBuilder.login();
-      } catch (final DiscordException e) {
-         e.printStackTrace();
-         return null;
+   @Override
+   public void onEvent(Event event) {
+      if (event instanceof MessageReceivedEvent) {
+         final Message message = ((MessageReceivedEvent) event).getMessage();
+         if (message.getAuthor().isBot()) {
+            return;
+         }
+
+         LOGGER.debug("User '{}' has sent message '{}' at channel '{}'",
+               message.getAuthor().getName(),
+               message.getContentRaw(),
+               message.getChannel().getName());
+
+         _commandParser.interpretMessage(message);
+      } else if (event instanceof ReadyEvent) {
+         LOGGER.info("JdaApp is ready!");
       }
    }
 }

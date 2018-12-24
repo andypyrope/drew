@@ -1,6 +1,6 @@
 package io.github.andypyrope.drew.cmd;
 
-import sx.blah.discord.handle.obj.IMessage;
+import net.dv8tion.jda.core.entities.Message;
 
 /**
  * A command that can be invoked by users by sending a message in any channel where the
@@ -32,5 +32,5 @@ public interface Command {
     * @param message        The message entity.
     * @param parameterStart From which index the parameters of the command should start.
     */
-   void execute(final IMessage message, final int parameterStart);
+   void execute(final Message message, final int parameterStart);
 }

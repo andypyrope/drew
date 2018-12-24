@@ -1,13 +1,15 @@
 package io.github.andypyrope.drew.cmd.general;
 
 import io.github.andypyrope.drew.cmd.Command;
-import io.github.andypyrope.drew.cmd.testutil.bot.FakeBot;
-import io.github.andypyrope.drew.cmd.testutil.bot.HackyBot;
+import io.github.andypyrope.drew.cmd.testutil.bot.FakeMessageChannel;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 class HelpCommandTest {
@@ -90,11 +92,12 @@ class HelpCommandTest {
    private static void executeCommand(final Command command, final String params,
          final String expectedAnswer) {
 
-      final HackyBot bot = new FakeBot();
-      command.execute(bot.sendMessage(params), 0);
+      final MessageChannel channel = new FakeMessageChannel();
+      command.execute(channel.sendMessage(params).complete(), 0);
 
-      Assertions.assertEquals(2, bot.getMessages().size());
-      Assertions.assertEquals(expectedAnswer, bot.getMessages().get(1).getContent());
+      final List<Message> messages = channel.getHistory().retrievePast(2).complete();
+      Assertions.assertEquals(2, messages.size());
+      Assertions.assertEquals(expectedAnswer, messages.get(1).getContentRaw());
    }
 
    private static Command makeCommandMock(final String[] aliases,

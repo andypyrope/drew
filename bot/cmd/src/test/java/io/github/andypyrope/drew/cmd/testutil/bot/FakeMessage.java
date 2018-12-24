@@ -1,301 +1,317 @@
 package io.github.andypyrope.drew.cmd.testutil.bot;
 
-import com.vdurmont.emoji.Emoji;
-import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.api.IShard;
-import sx.blah.discord.api.internal.json.objects.EmbedObject;
-import sx.blah.discord.handle.impl.obj.ReactionEmoji;
-import sx.blah.discord.handle.obj.*;
-import sx.blah.discord.util.MessageTokenizer;
+import net.dv8tion.jda.client.entities.Group;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.requests.RestAction;
+import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
+import net.dv8tion.jda.core.requests.restaction.MessageAction;
 
-import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.util.Formatter;
 import java.util.List;
-import java.util.Optional;
 
-class FakeMessage implements IMessage {
+class FakeMessage implements Message {
 
-   private final HackyBot _bot;
+   private static final String AUTHOR = "mewore";
+
+   private final MessageChannel _channel;
    private final String _content;
 
-   FakeMessage(final HackyBot bot, final String content) {
+   FakeMessage(final MessageChannel channel, final String content) {
       _content = content;
-      _bot = bot;
+      _channel = channel;
    }
 
    @Override
-   public String getContent() {
-      if (_content == null) {
-         throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-               "#getContent does not have anything to return");
-      }
-      return _content;
-   }
-
-   @Override
-   public IChannel getChannel() {
+   public List<User> getMentionedUsers() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getChannel does not have functionality yet");
+            "#getMentionedUsers has not been implemented yet");
    }
 
    @Override
-   public IUser getAuthor() {
-      return new FakeUser(HackyBot.AUTHOR);
-   }
-
-   @Override
-   public Instant getTimestamp() {
+   public List<TextChannel> getMentionedChannels() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getTimestamp does not have functionality yet");
+            "#getMentionedChannels has not been implemented yet");
    }
 
    @Override
-   public List<IUser> getMentions() {
+   public List<Role> getMentionedRoles() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getMentions does not have functionality yet");
+            "#getMentionedRoles has not been implemented yet");
    }
 
    @Override
-   public List<IRole> getRoleMentions() {
+   public List<Member> getMentionedMembers(final Guild guild) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getRoleMentions does not have functionality yet");
+            "#getMentionedMembers has not been implemented yet");
    }
 
    @Override
-   public List<IChannel> getChannelMentions() {
+   public List<Member> getMentionedMembers() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getChannelMentions does not have functionality yet");
+            "#getMentionedMembers has not been implemented yet");
    }
 
    @Override
-   public List<Attachment> getAttachments() {
+   public List<IMentionable> getMentions(final MentionType... mentionTypes) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getAttachments does not have functionality yet");
+            "#getMentions has not been implemented yet");
    }
 
    @Override
-   public List<IEmbed> getEmbeds() {
+   public boolean isMentioned(final IMentionable iMentionable,
+         final MentionType... mentionTypes) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getEmbeds does not have functionality yet");
-   }
-
-   @Override
-   public IMessage reply(final String reply) {
-      return _bot.sendMessage(reply);
-   }
-
-   @Override
-   public IMessage reply(final String s, final EmbedObject embedObject) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#reply does not have functionality yet");
-   }
-
-   @Override
-   public IMessage edit(final String s) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#edit does not have functionality yet");
-   }
-
-   @Override
-   public IMessage edit(final String s, final EmbedObject embedObject) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#edit does not have functionality yet");
-   }
-
-   @Override
-   public IMessage edit(final EmbedObject embedObject) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#edit does not have functionality yet");
+            "#isMentioned has not been implemented yet");
    }
 
    @Override
    public boolean mentionsEveryone() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#mentionsEveryone does not have functionality yet");
+            "#mentionsEveryone has not been implemented yet");
    }
 
    @Override
-   public boolean mentionsHere() {
+   public boolean isEdited() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#mentionsHere does not have functionality yet");
+            "#isEdited has not been implemented yet");
    }
 
    @Override
-   public void delete() {
+   public OffsetDateTime getEditedTime() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#delete does not have functionality yet");
+            "#getEditedTime has not been implemented yet");
    }
 
    @Override
-   public Optional<Instant> getEditedTimestamp() {
+   public User getAuthor() {
+      return new FakeUser(AUTHOR);
+   }
+
+   @Override
+   public Member getMember() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getEditedTimestamp does not have functionality yet");
+            "#getMember has not been implemented yet");
+   }
+
+   @Override
+   public String getJumpUrl() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getJumpUrl has not been implemented yet");
+   }
+
+   @Override
+   public String getContentDisplay() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getContentDisplay has not been implemented yet");
+   }
+
+   @Override
+   public String getContentRaw() {
+      return _content;
+   }
+
+   @Override
+   public String getContentStripped() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getContentStripped has not been implemented yet");
+   }
+
+   @Override
+   public List<String> getInvites() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getInvites has not been implemented yet");
+   }
+
+   @Override
+   public String getNonce() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getNonce has not been implemented yet");
+   }
+
+   @Override
+   public boolean isFromType(final ChannelType channelType) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#isFromType has not been implemented yet");
+   }
+
+   @Override
+   public ChannelType getChannelType() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getChannelType has not been implemented yet");
+   }
+
+   @Override
+   public boolean isWebhookMessage() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#isWebhookMessage has not been implemented yet");
+   }
+
+   @Override
+   public MessageChannel getChannel() {
+      return _channel;
+   }
+
+   @Override
+   public PrivateChannel getPrivateChannel() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getPrivateChannel has not been implemented yet");
+   }
+
+   @Override
+   public Group getGroup() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getGroup has not been implemented yet");
+   }
+
+   @Override
+   public TextChannel getTextChannel() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getTextChannel has not been implemented yet");
+   }
+
+   @Override
+   public Category getCategory() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getCategory has not been implemented yet");
+   }
+
+   @Override
+   public Guild getGuild() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getGuild has not been implemented yet");
+   }
+
+   @Override
+   public List<Attachment> getAttachments() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getAttachments has not been implemented yet");
+   }
+
+   @Override
+   public List<MessageEmbed> getEmbeds() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getEmbeds has not been implemented yet");
+   }
+
+   @Override
+   public List<Emote> getEmotes() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getEmotes has not been implemented yet");
+   }
+
+   @Override
+   public List<MessageReaction> getReactions() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getReactions has not been implemented yet");
+   }
+
+   @Override
+   public boolean isTTS() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#isTTS has not been implemented yet");
+   }
+
+   @Override
+   public MessageAction editMessage(final CharSequence charSequence) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#editMessage has not been implemented yet");
+   }
+
+   @Override
+   public MessageAction editMessage(final MessageEmbed messageEmbed) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#editMessage has not been implemented yet");
+   }
+
+   @Override
+   public MessageAction editMessageFormat(final String s, final Object... objects) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#editMessageFormat has not been implemented yet");
+   }
+
+   @Override
+   public MessageAction editMessage(final Message message) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#editMessage has not been implemented yet");
+   }
+
+   @Override
+   public AuditableRestAction<Void> delete() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#delete has not been implemented yet");
+   }
+
+   @Override
+   public JDA getJDA() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getJDA has not been implemented yet");
    }
 
    @Override
    public boolean isPinned() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#isPinned does not have functionality yet");
+            "#isPinned has not been implemented yet");
    }
 
    @Override
-   public IGuild getGuild() {
+   public RestAction<Void> pin() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getGuild does not have functionality yet");
+            "#pin has not been implemented yet");
    }
 
    @Override
-   public String getFormattedContent() {
+   public RestAction<Void> unpin() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getFormattedContent does not have functionality yet");
+            "#unpin has not been implemented yet");
    }
 
    @Override
-   public List<IReaction> getReactions() {
+   public RestAction<Void> addReaction(final Emote emote) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getReactions does not have functionality yet");
+            "#addReaction has not been implemented yet");
    }
 
    @Override
-   public IReaction getReactionByEmoji(final IEmoji iEmoji) {
+   public RestAction<Void> addReaction(final String s) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getReactionByEmoji does not have functionality yet");
+            "#addReaction has not been implemented yet");
    }
 
    @Override
-   public IReaction getReactionByID(final long l) {
+   public RestAction<Void> clearReactions() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getReactionByID does not have functionality yet");
+            "#clearReactions has not been implemented yet");
    }
 
    @Override
-   public IReaction getReactionByUnicode(final Emoji emoji) {
+   public MessageType getType() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getReactionByUnicode does not have functionality yet");
+            "#getType has not been implemented yet");
    }
 
    @Override
-   public IReaction getReactionByUnicode(final String s) {
+   public void formatTo(final Formatter formatter, final int flags, final int width,
+         final int precision) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getReactionByUnicode does not have functionality yet");
+            "#formatTo has not been implemented yet");
    }
 
    @Override
-   public IReaction getReactionByEmoji(final ReactionEmoji reactionEmoji) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getReactionByEmoji does not have functionality yet");
+   public String getId() {
+      return "0";
    }
 
    @Override
-   public void addReaction(final IReaction iReaction) {
+   public long getIdLong() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#addReaction does not have functionality yet");
+            "#getIdLong has not been implemented yet");
    }
 
    @Override
-   public void addReaction(final IEmoji iEmoji) {
+   public OffsetDateTime getCreationTime() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#addReaction does not have functionality yet");
-   }
-
-   @Override
-   public void addReaction(final Emoji emoji) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#addReaction does not have functionality yet");
-   }
-
-   @Override
-   public void addReaction(final ReactionEmoji reactionEmoji) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#addReaction does not have functionality yet");
-   }
-
-   @Override
-   public void removeReaction(final IUser iUser, final IReaction iReaction) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#removeReaction does not have functionality yet");
-   }
-
-   @Override
-   public void removeReaction(final IUser iUser, final ReactionEmoji reactionEmoji) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#removeReaction does not have functionality yet");
-   }
-
-   @Override
-   public void removeReaction(final IUser iUser, final IEmoji iEmoji) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#removeReaction does not have functionality yet");
-   }
-
-   @Override
-   public void removeReaction(final IUser iUser, final Emoji emoji) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#removeReaction does not have functionality yet");
-   }
-
-   @Override
-   public void removeReaction(final IUser iUser, final String s) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#removeReaction does not have functionality yet");
-   }
-
-   @Override
-   public void removeAllReactions() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#removeAllReactions does not have functionality yet");
-   }
-
-   @Override
-   public MessageTokenizer tokenize() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#tokenize does not have functionality yet");
-   }
-
-   @Override
-   public boolean isDeleted() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#isDeleted does not have functionality yet");
-   }
-
-   @Override
-   public long getWebhookLongID() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getWebhookLongID does not have functionality yet");
-   }
-
-   @Override
-   public Type getType() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getType does not have functionality yet");
-   }
-
-   @Override
-   public boolean isSystemMessage() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#isSystemMessage does not have functionality yet");
-   }
-
-   @Override
-   public IDiscordClient getClient() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getClient does not have functionality yet");
-   }
-
-   @Override
-   public IShard getShard() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getShard does not have functionality yet");
-   }
-
-   @Override
-   public IMessage copy() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#copy does not have functionality yet");
-   }
-
-   @Override
-   public long getLongID() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getLongID does not have functionality yet");
+            "#getCreationTime has not been implemented yet");
    }
 }

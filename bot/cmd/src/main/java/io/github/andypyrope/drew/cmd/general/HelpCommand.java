@@ -1,12 +1,17 @@
 package io.github.andypyrope.drew.cmd.general;
 
 import io.github.andypyrope.drew.cmd.Command;
-import sx.blah.discord.handle.obj.IMessage;
+import net.dv8tion.jda.core.entities.Message;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class HelpCommand implements Command {
+
+   private static final Logger LOGGER =
+         LoggerFactory.getLogger(HelpCommand.class.getName());
 
    private final Map<String, String> _commandDescriptions;
    private String _wholeHelp;
@@ -48,7 +53,7 @@ public class HelpCommand implements Command {
          }
       }
 
-      _wholeHelp = "\n" + Arrays.stream(commands)
+      _wholeHelp = Arrays.stream(commands)
             .map(command -> String.format("=> `%s` - *%s*",
                   Arrays.stream(command.getAliases()).collect(Collectors.joining(" | ")),
                   command.getBriefDescription()))
@@ -80,21 +85,29 @@ public class HelpCommand implements Command {
    }
 
    @Override
-   public void execute(final IMessage message, final int paramStart) {
-      final String content = message.getContent();
+   public void execute(final Message message, final int paramStart) {
+      final String content = message.getContentRaw();
 
       if (paramStart >= content.trim().length()) {
-         message.reply(_wholeHelp);
+         message.getChannel().sendMessage(_wholeHelp)
+               .queue((result) -> LOGGER.debug(
+                     "Message '{}' sent - all command info", result.getId()));
          return;
       }
 
       final String param = content.substring(paramStart).split(" ")[0];
       if (!_commandDescriptions.containsKey(param)) {
-         message.reply(String.format("Sorry, there's no '%s' command. Please use the " +
-                     "`%s` command with no parameters to see a list of all commands.",
-               param, getAliases()[0]));
+         message.getChannel().sendMessage(
+               String.format("Sorry, there's no '%s' command. Please use the " +
+                           "`%s` command with no parameters to see a list of all commands.",
+                     param, getAliases()[0]))
+               .queue((result) -> LOGGER.debug(
+                     "Message '{}' sent - that there was no '{}' command",
+                     result.getId(), param));
          return;
       }
-      message.reply(_commandDescriptions.get(param));
+      message.getChannel().sendMessage(_commandDescriptions.get(param))
+            .queue((result) -> LOGGER.debug(
+                  "Message '{}' sent - info about command '{}'", result.getId(), param));
    }
 }

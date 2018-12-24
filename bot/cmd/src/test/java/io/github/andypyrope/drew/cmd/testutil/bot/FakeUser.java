@@ -1,16 +1,15 @@
 package io.github.andypyrope.drew.cmd.testutil.bot;
 
-import sx.blah.discord.api.IDiscordClient;
-import sx.blah.discord.api.IShard;
-import sx.blah.discord.handle.obj.*;
-import sx.blah.discord.util.cache.LongMap;
+import net.dv8tion.jda.core.JDA;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.PrivateChannel;
+import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.requests.RestAction;
 
-import java.awt.*;
-import java.time.Instant;
-import java.util.EnumSet;
+import java.time.OffsetDateTime;
 import java.util.List;
 
-public class FakeUser implements IUser {
+public class FakeUser implements User {
 
    private final String _name;
 
@@ -24,152 +23,98 @@ public class FakeUser implements IUser {
    }
 
    @Override
-   public String getAvatar() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getAvatar does not have anything to return");
-   }
-
-   @Override
-   public String getAvatarURL() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getAvatarURL does not have anything to return");
-   }
-
-   @Override
-   public IPresence getPresence() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getPresence does not have anything to return");
-   }
-
-   @Override
-   public String getDisplayName(final IGuild iGuild) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getDisplayName does not have anything to return");
-   }
-
-   @Override
-   public String mention() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#mention does not have anything to return");
-   }
-
-   @Override
-   public String mention(final boolean b) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#mention does not have anything to return");
-   }
-
-   @Override
    public String getDiscriminator() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getDiscriminator does not have anything to return");
+            "#getDiscriminator has not been implemented yet");
    }
 
    @Override
-   public List<IRole> getRolesForGuild(final IGuild iGuild) {
+   public String getAvatarId() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getRolesForGuild does not have anything to return");
+            "#getAvatarId has not been implemented yet");
    }
 
    @Override
-   public Color getColorForGuild(final IGuild iGuild) {
+   public String getAvatarUrl() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getColorForGuild does not have anything to return");
+            "#getAvatarUrl has not been implemented yet");
    }
 
    @Override
-   public EnumSet<Permissions> getPermissionsForGuild(final IGuild iGuild) {
+   public String getDefaultAvatarId() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getPermissionsForGuild does not have anything to return");
+            "#getDefaultAvatarId has not been implemented yet");
    }
 
    @Override
-   public String getNicknameForGuild(final IGuild iGuild) {
+   public String getDefaultAvatarUrl() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getNicknameForGuild does not have anything to return");
+            "#getDefaultAvatarUrl has not been implemented yet");
    }
 
    @Override
-   public IVoiceState getVoiceStateForGuild(final IGuild iGuild) {
+   public String getEffectiveAvatarUrl() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getVoiceStateForGuild does not have anything to return");
+            "#getEffectiveAvatarUrl has not been implemented yet");
    }
 
    @Override
-   public LongMap<IVoiceState> getVoiceStates() {
+   public boolean hasPrivateChannel() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getVoiceStates does not have anything to return");
+            "#hasPrivateChannel has not been implemented yet");
    }
 
    @Override
-   public void moveToVoiceChannel(final IVoiceChannel iVoiceChannel) {
+   public RestAction<PrivateChannel> openPrivateChannel() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#moveToVoiceChannel does not have anything to return");
+            "#openPrivateChannel has not been implemented yet");
+   }
+
+   @Override
+   public List<Guild> getMutualGuilds() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getMutualGuilds has not been implemented yet");
    }
 
    @Override
    public boolean isBot() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#isBot does not have anything to return");
+            "#isBot has not been implemented yet");
    }
 
    @Override
-   public IPrivateChannel getOrCreatePMChannel() {
+   public JDA getJDA() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getOrCreatePMChannel does not have anything to return");
+            "#getJDA has not been implemented yet");
    }
 
    @Override
-   public void addRole(final IRole iRole) {
+   public boolean isFake() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#addRole does not have anything to return");
+            "#isFake has not been implemented yet");
    }
 
    @Override
-   public void removeRole(final IRole iRole) {
+   public String getAsMention() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#removeRole does not have anything to return");
+            "#getAsMention has not been implemented yet");
    }
 
    @Override
-   public boolean hasRole(final IRole iRole) {
+   public String getId() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#hasRole does not have anything to return");
+            "#getId has not been implemented yet");
    }
 
    @Override
-   public IDiscordClient getClient() {
+   public long getIdLong() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getClient does not have anything to return");
+            "#getIdLong has not been implemented yet");
    }
 
    @Override
-   public IShard getShard() {
+   public OffsetDateTime getCreationTime() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getShard does not have anything to return");
-   }
-
-   @Override
-   public Instant getCreationDate() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getCreationDate does not have anything to return");
-   }
-
-   @Override
-   public IUser copy() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#copy does not have anything to return");
-   }
-
-   @Override
-   public long getLongID() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getLongID does not have anything to return");
-   }
-
-   @Override
-   public String getStringID() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getStringID does not have anything to return");
+            "#getCreationTime has not been implemented yet");
    }
 }

@@ -13,14 +13,6 @@
       <module>cmd</module>
    </modules>
 
-   <repositories>
-      <repository>
-         <id>jcenter</id>
-         <name>jcenter-bintray</name>
-         <url>http://jcenter.bintray.com</url>
-      </repository>
-   </repositories>
-
    <properties>
       <java.version>9</java.version>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,9 +49,9 @@
          <scope>test</scope>
       </dependency>
       <dependency>
-         <groupId>com.discord4j</groupId>
-         <artifactId>Discord4J</artifactId>
-         <version>${discord4j.version}</version>
+         <groupId>net.dv8tion</groupId>
+         <artifactId>JDA</artifactId>
+         <version>3.8.1_DEV</version>
       </dependency>
       <dependency>
          <groupId>org.apache.logging.log4j</groupId>
