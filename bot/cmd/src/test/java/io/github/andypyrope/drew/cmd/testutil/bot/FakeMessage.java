@@ -1,11 +1,10 @@
 package io.github.andypyrope.drew.cmd.testutil.bot;
 
-import net.dv8tion.jda.client.entities.Group;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.requests.RestAction;
-import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
-import net.dv8tion.jda.core.requests.restaction.MessageAction;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 import java.time.OffsetDateTime;
 import java.util.Formatter;
@@ -79,9 +78,9 @@ class FakeMessage implements Message {
    }
 
    @Override
-   public OffsetDateTime getEditedTime() {
+   public OffsetDateTime getTimeEdited() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getEditedTime has not been implemented yet");
+            "#getTimeEdited has not been implemented yet");
    }
 
    @Override
@@ -157,12 +156,6 @@ class FakeMessage implements Message {
    public PrivateChannel getPrivateChannel() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getPrivateChannel has not been implemented yet");
-   }
-
-   @Override
-   public Group getGroup() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getGroup has not been implemented yet");
    }
 
    @Override
@@ -307,11 +300,5 @@ class FakeMessage implements Message {
    public long getIdLong() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getIdLong has not been implemented yet");
-   }
-
-   @Override
-   public OffsetDateTime getCreationTime() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getCreationTime has not been implemented yet");
    }
 }

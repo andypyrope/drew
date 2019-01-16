@@ -1,9 +1,10 @@
 package io.github.andypyrope.drew.cmd.testutil.bot;
 
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.requests.RequestFuture;
-import net.dv8tion.jda.core.requests.RestAction;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.exceptions.RateLimitedException;
+import net.dv8tion.jda.api.requests.RestAction;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
@@ -52,19 +53,7 @@ public class FakeRestAction<T> implements RestAction<T> {
    public void queue(final Consumer<? super T> consumer,
          final Consumer<? super Throwable> consumer1) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#queue(Consumer<T>, Consumer<Throwable>) has not been implemented yet");
-   }
-
-   @Override
-   public RequestFuture<T> submit() {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#submit has not been implemented yet");
-   }
-
-   @Override
-   public RequestFuture<T> submit(final boolean b) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#submit has not been implemented yet");
+            "#queue has not been implemented yet");
    }
 
    @Override
@@ -77,70 +66,80 @@ public class FakeRestAction<T> implements RestAction<T> {
    }
 
    @Override
-   public T complete(final boolean b) {
+   public T complete(final boolean b) throws RateLimitedException {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#complete has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<T> submitAfter(final long l, final TimeUnit timeUnit) {
+   public CompletableFuture<T> submit() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#submit has not been implemented yet");
+   }
+
+   @Override
+   public CompletableFuture<T> submit(final boolean b) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#submit has not been implemented yet");
+   }
+
+   @Override
+   public ScheduledFuture<T> submitAfter(final long delay, final TimeUnit unit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#submitAfter has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<T> submitAfter(final long l, final TimeUnit timeUnit,
-         final ScheduledExecutorService scheduledExecutorService) {
+   public ScheduledFuture<T> submitAfter(final long delay, final TimeUnit unit,
+         final ScheduledExecutorService executor) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#submitAfter has not been implemented yet");
    }
 
    @Override
-   public T completeAfter(final long l, final TimeUnit timeUnit) {
+   public T completeAfter(final long delay, final TimeUnit unit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#completeAfter has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<?> queueAfter(final long l, final TimeUnit timeUnit) {
+   public ScheduledFuture<?> queueAfter(final long delay, final TimeUnit unit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#queueAfter has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<?> queueAfter(final long l, final TimeUnit timeUnit,
-         final Consumer<? super T> consumer) {
+   public ScheduledFuture<?> queueAfter(final long delay, final TimeUnit unit,
+         final Consumer<? super T> success) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#queueAfter has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<?> queueAfter(final long l, final TimeUnit timeUnit,
-         final Consumer<? super T> consumer,
-         final Consumer<? super Throwable> consumer1) {
+   public ScheduledFuture<?> queueAfter(final long delay, final TimeUnit unit,
+         final Consumer<? super T> success, final Consumer<? super Throwable> failure) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#queueAfter has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<?> queueAfter(final long l, final TimeUnit timeUnit,
-         final ScheduledExecutorService scheduledExecutorService) {
+   public ScheduledFuture<?> queueAfter(final long delay, final TimeUnit unit,
+         final ScheduledExecutorService executor) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#queueAfter has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<?> queueAfter(final long l, final TimeUnit timeUnit,
-         final Consumer<? super T> consumer,
-         final ScheduledExecutorService scheduledExecutorService) {
+   public ScheduledFuture<?> queueAfter(final long delay, final TimeUnit unit,
+         final Consumer<? super T> success, final ScheduledExecutorService executor) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#queueAfter has not been implemented yet");
    }
 
    @Override
-   public ScheduledFuture<?> queueAfter(final long l, final TimeUnit timeUnit,
-         final Consumer<? super T> consumer, final Consumer<? super Throwable> consumer1,
-         final ScheduledExecutorService scheduledExecutorService) {
+   public ScheduledFuture<?> queueAfter(final long delay, final TimeUnit unit,
+         final Consumer<? super T> success, final Consumer<? super Throwable> failure,
+         final ScheduledExecutorService executor) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#queueAfter has not been implemented yet");
    }

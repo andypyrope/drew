@@ -1,12 +1,11 @@
 package io.github.andypyrope.drew.cmd.testutil.bot;
 
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.*;
-import net.dv8tion.jda.core.requests.RequestFuture;
-import net.dv8tion.jda.core.requests.RestAction;
-import net.dv8tion.jda.core.requests.restaction.AuditableRestAction;
-import net.dv8tion.jda.core.requests.restaction.MessageAction;
-import net.dv8tion.jda.core.requests.restaction.pagination.MessagePaginationAction;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.requests.RestAction;
+import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
+import net.dv8tion.jda.api.requests.restaction.pagination.MessagePaginationAction;
 
 import java.io.File;
 import java.io.InputStream;
@@ -14,6 +13,7 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class FakeMessageChannel implements MessageChannel {
 
@@ -35,32 +35,32 @@ public class FakeMessageChannel implements MessageChannel {
    }
 
    @Override
-   public List<RequestFuture<Void>> purgeMessagesById(final List<String> messageIds) {
+   public List<CompletableFuture<Void>> purgeMessagesById(final List<String> messageIds) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#purgeMessagesById has not been implemented yet");
    }
 
    @Override
-   public List<RequestFuture<Void>> purgeMessagesById(final String... messageIds) {
+   public List<CompletableFuture<Void>> purgeMessagesById(final String... messageIds) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#purgeMessagesById has not been implemented yet");
    }
 
    @Override
-   public List<RequestFuture<Void>> purgeMessages(final Message... messages) {
+   public List<CompletableFuture<Void>> purgeMessages(final Message... messages) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#purgeMessages has not been implemented yet");
    }
 
    @Override
-   public List<RequestFuture<Void>> purgeMessages(
+   public List<CompletableFuture<Void>> purgeMessages(
          final List<? extends Message> messages) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#purgeMessages has not been implemented yet");
    }
 
    @Override
-   public List<RequestFuture<Void>> purgeMessagesById(final long... messageIds) {
+   public List<CompletableFuture<Void>> purgeMessagesById(final long... messageIds) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#purgeMessagesById has not been implemented yet");
    }
@@ -206,65 +206,63 @@ public class FakeMessageChannel implements MessageChannel {
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryAround(
-         final String messageId,
+   public MessageRetrieveAction getHistoryAround(final String messageId,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryAround has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryAround(final long messageId,
+   public MessageRetrieveAction getHistoryAround(final long messageId,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryAround has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryAround(final Message message,
+   public MessageRetrieveAction getHistoryAround(final Message message,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryAround has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryAfter(final String messageId,
+   public MessageRetrieveAction getHistoryAfter(final String messageId,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryAfter has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryAfter(final long messageId,
+   public MessageRetrieveAction getHistoryAfter(final long messageId,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryAfter has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryAfter(final Message message,
+   public MessageRetrieveAction getHistoryAfter(final Message message,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryAfter has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryBefore(
-         final String messageId,
+   public MessageRetrieveAction getHistoryBefore(final String messageId,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryBefore has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryBefore(final long messageId,
+   public MessageRetrieveAction getHistoryBefore(final long messageId,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryBefore has not been implemented yet");
    }
 
    @Override
-   public MessageHistoryImpl.MessageRetrieveAction getHistoryBefore(final Message message,
+   public MessageRetrieveAction getHistoryBefore(final Message message,
          final int limit) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getHistoryBefore has not been implemented yet");
@@ -431,8 +429,8 @@ public class FakeMessageChannel implements MessageChannel {
    }
 
    @Override
-   public OffsetDateTime getCreationTime() {
+   public OffsetDateTime getTimeCreated() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getCreationTime has not been implemented yet");
+            "#getTimeCreated has not been implemented yet");
    }
 }

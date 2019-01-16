@@ -1,12 +1,13 @@
 package io.github.andypyrope.drew.cmd.testutil.bot;
 
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.PrivateChannel;
-import net.dv8tion.jda.core.entities.User;
-import net.dv8tion.jda.core.requests.RestAction;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.PrivateChannel;
+import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.requests.RestAction;
 
 import java.time.OffsetDateTime;
+import java.util.Formatter;
 import java.util.List;
 
 public class FakeUser implements User {
@@ -59,6 +60,12 @@ public class FakeUser implements User {
    }
 
    @Override
+   public String getAsTag() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getAsTag has not been implemented yet");
+   }
+
+   @Override
    public boolean hasPrivateChannel() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#hasPrivateChannel has not been implemented yet");
@@ -101,6 +108,13 @@ public class FakeUser implements User {
    }
 
    @Override
+   public void formatTo(final Formatter formatter, final int flags, final int width,
+         final int precision) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#formatTo has not been implemented yet");
+   }
+
+   @Override
    public String getId() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#getId has not been implemented yet");
@@ -113,8 +127,8 @@ public class FakeUser implements User {
    }
 
    @Override
-   public OffsetDateTime getCreationTime() {
+   public OffsetDateTime getTimeCreated() {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#getCreationTime has not been implemented yet");
+            "#getTimeCreated has not been implemented yet");
    }
 }

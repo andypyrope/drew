@@ -1,8 +1,8 @@
 package io.github.andypyrope.drew.cmd;
 
 import io.github.andypyrope.drew.cmd.testutil.bot.FakeMessageChannel;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
 import org.easymock.EasyMock;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

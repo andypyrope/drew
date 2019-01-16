@@ -4,12 +4,12 @@ import io.github.andypyrope.drew.cmd.Command;
 import io.github.andypyrope.drew.cmd.CommandParser;
 import io.github.andypyrope.drew.cmd.JdaCommandParser;
 import io.github.andypyrope.drew.cmd.general.HelpCommand;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.Event;
-import net.dv8tion.jda.core.events.ReadyEvent;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.EventListener;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.EventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +46,7 @@ public class App implements EventListener {
    }
 
    private void start(final String token) throws LoginException {
-      new JDABuilder(token).addEventListener(this).build();
+      new JDABuilder(token).addEventListeners(this).build();
    }
 
    @Override

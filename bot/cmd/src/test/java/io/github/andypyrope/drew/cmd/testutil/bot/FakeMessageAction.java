@@ -1,18 +1,26 @@
 package io.github.andypyrope.drew.cmd.testutil.bot;
 
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.requests.restaction.MessageAction;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 import java.io.File;
 import java.io.InputStream;
 import java.util.function.BiConsumer;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 
 public class FakeMessageAction extends FakeRestAction<Message> implements MessageAction {
 
    FakeMessageAction(final Message message, final Runnable whenExecuted) {
       super(message, whenExecuted);
+   }
+
+   @Override
+   public MessageChannel getChannel() {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#getChannel has not been implemented yet");
    }
 
    @Override
@@ -28,7 +36,7 @@ public class FakeMessageAction extends FakeRestAction<Message> implements Messag
    }
 
    @Override
-   public MessageAction apply(final net.dv8tion.jda.core.entities.Message message) {
+   public MessageAction apply(final net.dv8tion.jda.api.entities.Message message) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#apply has not been implemented yet");
    }
@@ -61,6 +69,25 @@ public class FakeMessageAction extends FakeRestAction<Message> implements Messag
    public MessageAction embed(final MessageEmbed messageEmbed) {
       throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
             "#embed has not been implemented yet");
+   }
+
+   @Override
+   public MessageAction append(final CharSequence csq) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#append has not been implemented yet");
+   }
+
+   @Override
+   public MessageAction append(final CharSequence charSequence, final int i,
+         final int i1) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#append has not been implemented yet");
+   }
+
+   @Override
+   public MessageAction append(final char c) {
+      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
+            "#append has not been implemented yet");
    }
 
    @Override
@@ -118,20 +145,7 @@ public class FakeMessageAction extends FakeRestAction<Message> implements Messag
    }
 
    @Override
-   public Appendable append(final CharSequence csq) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#append has not been implemented yet");
-   }
-
-   @Override
-   public Appendable append(final CharSequence csq, final int start, final int end) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#append has not been implemented yet");
-   }
-
-   @Override
-   public Appendable append(final char c) {
-      throw new MissingImplementationException("Method " + getClass().getCanonicalName() +
-            "#append has not been implemented yet");
+   public MessageAction setCheck(BooleanSupplier checks) {
+      return (MessageAction) super.setCheck(checks);
    }
 }

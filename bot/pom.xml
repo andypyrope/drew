@@ -51,7 +51,7 @@
       <dependency>
          <groupId>net.dv8tion</groupId>
          <artifactId>JDA</artifactId>
-         <version>3.8.1_DEV</version>
+         <version>4.ALPHA.0_DEV</version>
       </dependency>
       <dependency>
          <groupId>org.apache.logging.log4j</groupId>

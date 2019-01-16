@@ -1,6 +1,6 @@
 package io.github.andypyrope.drew.cmd;
 
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 /**
  * A command that can be invoked by users by sending a message in any channel where the
