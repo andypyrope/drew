@@ -5,12 +5,12 @@ jdk:
 
 before_script:
   - mkdir -p /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/
-  - scp "https://www.dropbox.com/s/j5khzbcm2s7xr03/JDA-4.ALPHA.0_DEV.jar?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.jar
-  - scp "https://www.dropbox.com/s/7hkhmvvigyj7ggx/JDA-4.ALPHA.0_DEV.jar.md5?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.jar.md5
-  - scp "https://www.dropbox.com/s/hnykb17eirr5i3s/JDA-4.ALPHA.0_DEV.jar.sha1?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.jar.sha1
-  - scp "https://www.dropbox.com/s/hynij2dwtb0qsbv/JDA-4.ALPHA.0_DEV.pom?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.pom
-  - scp "https://www.dropbox.com/s/0wy4abzric4q9je/JDA-4.ALPHA.0_DEV.pom.md5?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.pom.md5
-  - scp "https://www.dropbox.com/s/1vsgrvwpdlcbo7v/JDA-4.ALPHA.0_DEV.pom.sha1?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.pom.sha1
+  - curl "https://www.dropbox.com/s/j5khzbcm2s7xr03/JDA-4.ALPHA.0_DEV.jar?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.jar
+  - curl "https://www.dropbox.com/s/7hkhmvvigyj7ggx/JDA-4.ALPHA.0_DEV.jar.md5?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.jar.md5
+  - curl "https://www.dropbox.com/s/hnykb17eirr5i3s/JDA-4.ALPHA.0_DEV.jar.sha1?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.jar.sha1
+  - curl "https://www.dropbox.com/s/hynij2dwtb0qsbv/JDA-4.ALPHA.0_DEV.pom?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.pom
+  - curl "https://www.dropbox.com/s/0wy4abzric4q9je/JDA-4.ALPHA.0_DEV.pom.md5?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.pom.md5
+  - curl "https://www.dropbox.com/s/1vsgrvwpdlcbo7v/JDA-4.ALPHA.0_DEV.pom.sha1?dl=1" > /home/travis/.m2/repository/net/dv8tion/JDA/4.ALPHA.0_DEV/JDA-4.ALPHA.0_DEV.pom.sha1
   - cd bot
 
 script:
