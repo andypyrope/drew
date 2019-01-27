@@ -24,6 +24,18 @@
       <discord4j.version>2.10.1</discord4j.version>
    </properties>
 
+   <repositories>
+      <repository>
+         <id>jitpack.io</id>
+         <url>https://jitpack.io</url>
+      </repository>
+      <repository>
+         <id>jcenter</id>
+         <name>bintray-jcenter</name>
+         <url>https://jcenter.bintray.com</url>
+      </repository>
+   </repositories>
+
    <dependencies>
       <dependency>
          <groupId>org.easymock</groupId>
@@ -48,10 +60,11 @@
          <version>${junit.vintage.version}</version>
          <scope>test</scope>
       </dependency>
+      <!-- https://jitpack.io/com/github/mewore/JDA/v4-SNAPSHOT/build.log -->
       <dependency>
-         <groupId>net.dv8tion</groupId>
+         <groupId>com.github.mewore</groupId>
          <artifactId>JDA</artifactId>
-         <version>4.ALPHA.0_DEV</version>
+         <version>v4-v3.7.1-g12976a1-160</version>
       </dependency>
       <dependency>
          <groupId>org.apache.logging.log4j</groupId>
